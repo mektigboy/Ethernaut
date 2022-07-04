@@ -22,10 +22,11 @@ contract Delegation {
         owner = msg.sender;
     }
 
+    // Take advantage of this fallback via <sendTransaction>.
     fallback() external {
         (bool result, ) = address(delegate).delegatecall(msg.data);
         if (result) {
-            this;
+            this; // <this> instance of the contract.
         }
     }
 }
