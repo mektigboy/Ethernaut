@@ -7,7 +7,7 @@ contract GatekeeperOne {
     using SafeMath for uint256;
     address public entrant;
     // Include the line below, in recent Solidity versions casting an address into uints is unabled.
-    // uint256 i = uint256(uint160(address(tx.origin)));
+    uint256 i = uint256(uint160(address(tx.origin)));
 
     modifier gateOne() {
         require(msg.sender != tx.origin);
@@ -23,8 +23,8 @@ contract GatekeeperOne {
     modifier gateThree(bytes8 _gateKey) {
         require(uint32(uint64(_gateKey)) == uint16(uint64(_gateKey)), "GatekeeperOne: invalid gateThree part one");
         require(uint32(uint64(_gateKey)) != uint64(_gateKey), "GatekeeperOne: invalid gateThree part two");
-        require(uint32(uint64(_gateKey)) == uint16(tx.origin), "GatekeeperOne: invalid gateThree part three");
-        // require(uint32(uint64(_gateKey)) == uint16(i), "GatekeeperOne: invalid gateThree part three");
+        // require(uint32(uint64(_gateKey)) == uint16(tx.origin), "GatekeeperOne: invalid gateThree part three");
+        require(uint32(uint64(_gateKey)) == uint16(i), "GatekeeperOne: invalid gateThree part three");
         _;
     }
 
