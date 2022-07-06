@@ -34,8 +34,8 @@ contract NaughtCoin is ERC20 {
             // require(now > timeLock);
             require(block.timestamp > timeLock);
             _;
-            } else {
-                _;
-            }
+        } else {
+            _;
         }
     }
+}
