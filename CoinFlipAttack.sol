@@ -10,7 +10,7 @@ contract CoinFlipAttack {
 
     // Initialize the target CoinFlip address...
 
-    // We're not using "new" before CoinFlip because we want to interact with the existing contract, not a new instance of it.
+    // We are not using <new> before CoinFlip because we want to interact with the existing contract, not a new instance of it.
     constructor(address _victimContractAddress) public {
         victimContract = CoinFlip(_victimContractAddress);
     }

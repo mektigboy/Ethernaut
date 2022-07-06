@@ -4,8 +4,8 @@ pragma solidity ^0.6.0;
 import "./ERC20.sol";
 
 contract NaughtCoin is ERC20 {
-    // string public constant name = 'NaughtCoin';
-    // string public constant symbol = '0x0';
+    // string public constant name = "NaughtCoin";
+    // string public constant symbol = "0x0";
     // uint public constant decimals = 18;
     // <now> is deprecated.
     // uint public timeLock = now + 10 * 365 days;
@@ -14,7 +14,7 @@ contract NaughtCoin is ERC20 {
     address public player;
 
     constructor(address _player)
-    ERC20('NaughtCoin', '0x0')
+    ERC20("NaughtCoin", "0x0")
     public {
         player = _player;
         INITIAL_SUPPLY = 1000000 * (10**uint256(decimals()));
