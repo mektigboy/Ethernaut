@@ -2,7 +2,6 @@
 pragma solidity ^0.6.0;
 
 contract Preservation {
-
     // public library contracts
     address public timeZone1Library; // Slot 0
     address public timeZone2Library; // Slot 1
@@ -30,7 +29,6 @@ contract Preservation {
 
 // Simple library contract to set the time.
 contract LibraryContract {
-
     // Stores a timestamp.
     uint storedTime;
 
