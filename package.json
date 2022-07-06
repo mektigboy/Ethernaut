@@ -1,0 +1,22 @@
+{
+  "name": "ethernaut",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Recovery.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mektigboy/Ethernaut.git"
+  },
+  "author": "mektigboy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mektigboy/Ethernaut/issues"
+  },
+  "homepage": "https://github.com/mektigboy/Ethernaut#readme",
+  "dependencies": {
+    "@ethersproject/address": "^5.6.1"
+  }
+}
