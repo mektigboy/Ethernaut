@@ -28,7 +28,7 @@ contract NaughtCoin is ERC20 {
         super.transfer(_to, _value);
     }
 
-    // Prevent the initial owner from transferring tokens until the timelock has passed
+    // Prevent the initial owner from transferring tokens until the timelock has passed.
     modifier lockTokens() {
         if (msg.sender == player) {
             // require(now > timeLock);
