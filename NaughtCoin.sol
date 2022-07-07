@@ -9,7 +9,7 @@ contract NaughtCoin is ERC20 {
     // uint public constant decimals = 18;
     // <now> is deprecated.
     // uint public timeLock = now + 10 * 365 days;
-    uint public timeLock = block.timestamp + 10 * 365 days;
+    uint256 public timeLock = block.timestamp + 10 * 365 days;
     uint256 public INITIAL_SUPPLY;
     address public player;
 
@@ -24,10 +24,6 @@ contract NaughtCoin is ERC20 {
         emit Transfer(address(0), player, INITIAL_SUPPLY);
     }
 
-    function transfer(address _to, uint256 _value) override public lockTokens returns(bool) {
-        super.transfer(_to, _value);
-    }
-
     // Prevent the initial owner from transferring tokens until the timelock has passed.
     modifier lockTokens() {
         if (msg.sender == player) {
@@ -37,5 +33,9 @@ contract NaughtCoin is ERC20 {
         } else {
             _;
         }
+    }
+
+    function transfer(address _to, uint256 _value) override public lockTokens returns(bool) {
+        super.transfer(_to, _value);
     }
 }

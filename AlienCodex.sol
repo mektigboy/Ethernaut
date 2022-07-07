@@ -6,7 +6,7 @@ import '../helpers/Ownable-05.sol';
 contract AlienCodex is Ownable {
     bool public contact;
     bytes32[] public codex;
-    
+
     modifier contacted() {
         assert(contact);
         _;
@@ -24,7 +24,7 @@ contract AlienCodex is Ownable {
         codex.length--;
     }
 
-    function revise(uint i, bytes32 _content) contacted public {
+    function revise(uint256 i, bytes32 _content) contacted public {
         codex[i] = _content;
     }
 }
