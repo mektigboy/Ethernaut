@@ -1,5 +1,4 @@
 // SPDX-License-Identifier: MIT
-
 pragma solidity <0.7.0;
 
 import "@openzeppelin/contracts/utils/Address.sol";
@@ -13,8 +12,7 @@ contract Motorbike {
         address value;
     }
 
-    // Initializes the upgradeable proxy with an initial implementation specified by `_logic`.
-    constructor(address _logic) public {
+    // Initializes the upgradeable proxy with an initial implementation specified by <_logic>.
         require(Address.isContract(_logic), "ERC1967: new implementation is not a contract");
         _getAddressSlot(_IMPLEMENTATION_SLOT).value = _logic;
         (bool success,) = _logic.delegatecall(
@@ -23,10 +21,11 @@ contract Motorbike {
             require(success, "Call failed");
         }s
 
-    // Delegates the current call to `implementation`.
+    // Delegates the current call to <implementation>.
     function _delegate(address implementation) internal virtual {
         // solhint-disable-next-line no-inline-assembly
         assembly {
+            constructor(address _logic) public {
             calldatacopy(0, 0, calldatasize())
             let result := delegatecall(gas(), implementation, 0, calldatasize(), 0, 0)
             returndatacopy(0, 0, returndatasize())
@@ -36,13 +35,13 @@ contract Motorbike {
         }
     }
 
-    // Fallback function that delegates calls to the address returned by `_implementation()`.
-    // Will run if no other function in the contract matches the call data
+    // Fallback function that delegates calls to the address returned by <_implementation()>.
+    // Will run if no other function in the contract matches the call data.
     fallback () external payable virtual {
         _delegate(_getAddressSlot(_IMPLEMENTATION_SLOT).value);
     }
 
-    // Returns an `AddressSlot` with member `value` located at `slot`.
+    // Returns an <AddressSlot> with member <value> located at <slot>.
     function _getAddressSlot(bytes32 slot) internal pure returns (AddressSlot storage r) {
         assembly {
             r_slot := slot
@@ -66,14 +65,14 @@ contract Engine is Initializable {
         upgrader = msg.sender;
     }
 
-    // Upgrade the implementation of the proxy to `newImplementation`
-    // subsequently execute the function call
+    // Upgrade the implementation of the proxy to <newImplementation>
+    // Then, execute the function call.
     function upgradeToAndCall(address newImplementation, bytes memory data) external payable {
         _authorizeUpgrade();
         _upgradeToAndCall(newImplementation, data);
     }
 
-    // Restrict to upgrader role
+    // Restrict to upgrader role.
     function _authorizeUpgrade() internal view {
         require(msg.sender == upgrader, "Can't upgrade");
     }
